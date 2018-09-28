@@ -224,7 +224,7 @@ test_that("get_solution fails if no column duals are there", {
 test_that("bug 20180606: extract indexed variable fails if n = 1", {
   model <- MILPModel() %>%
     add_variable(x[i], i = 1)
-  solution <- new_solution(model, 0, "optimal", c("x[1]" = 1))
+  solution <- new_solution(model, 0, status = list(code=0, msg ="optimal solution found"), c("x[1]" = 1))
   res_df <- get_solution(solution, x[i])
   expect_true(is.data.frame(res_df))
   expect_equal(res_df$value, 1)
