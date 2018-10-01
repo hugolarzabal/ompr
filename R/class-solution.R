@@ -174,7 +174,7 @@ solver_status <- function(solution) UseMethod("solver_status")
 
 #' @export
 solver_status.solution <- function(solution) {
-  solution$status$code
+  solution$status
 }
 
 #' Gets the column duals of a solution
