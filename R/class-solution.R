@@ -108,7 +108,8 @@ extract_solution <- function(model, solution_vector, expr) {
                          as.character(as.numeric(ast[[i]])))
       }
     }
-    instance_pattern <- paste0(var_name,
+    instance_pattern <- paste0("^",
+                               var_name,
                                "\\[",
                                paste0(idx_pattern, collapse = ","),
                                "\\]")
@@ -118,7 +119,7 @@ extract_solution <- function(model, solution_vector, expr) {
     } else {
       # the solution is sorted lexigographically
       solution_names <- names(solution_vector)
-      rexp_c <- regexec(instance_pattern, solution_names, fixed =T)
+      rexp_c <- regexec(instance_pattern, solution_names)
       var_index <- do.call(rbind, regmatches(solution_names, rexp_c))
       na_rows <- as.logical(apply(is.na(var_index), 1, all))
       var_index <- var_index[!na_rows, , drop = FALSE]
